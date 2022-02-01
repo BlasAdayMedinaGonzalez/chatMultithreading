@@ -3,7 +3,7 @@ package com.adaysoft.client;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 @SuppressWarnings("unchecked")
 public class MainClient {
@@ -15,13 +15,15 @@ public class MainClient {
             ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
             Scanner sc = new Scanner(System.in)) {
             
-            ArrayList<String> msgList = (ArrayList<String>) ois.readObject();
+            List<String> msgsListSync = (List<String>) ois.readObject();
             
             
-            if (!msgList.isEmpty()) {
-                for (String msg : msgList) {
-                    System.out.println(msg);
-                }
+            if (!msgsListSync.isEmpty()) {
+                synchronized (msgsListSync) {
+                    for (String msg : msgsListSync) {
+                        System.out.println(msg);
+                    }
+                }  
             }
 
             System.out.println("Enter name: ");
