@@ -5,9 +5,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+@SuppressWarnings("unchecked")
 public class MainClient {
-
+    
     public static void main(String[] args) {
 
         try (Socket s = new Socket("localhost", 8080);
@@ -35,9 +35,8 @@ public class MainClient {
                 oos.writeObject(msg);
 
                 String msgServer = (String) ois.readObject();
-                if (msgServer != null) {
-                    System.out.println(msgServer);
-                }
+                System.out.println(msgServer);
+                
             }
             
         } catch (Exception e) {
