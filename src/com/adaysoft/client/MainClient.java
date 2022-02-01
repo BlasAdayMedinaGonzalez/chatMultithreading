@@ -15,12 +15,12 @@ public class MainClient {
             ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
             Scanner sc = new Scanner(System.in)) {
             
-            List<String> msgsListSync = (List<String>) ois.readObject();
+            List<String> messagesListSync = (List<String>) ois.readObject();
             
             
-            if (!msgsListSync.isEmpty()) {
-                synchronized (msgsListSync) {
-                    for (String msg : msgsListSync) {
+            if (!messagesListSync.isEmpty()) {
+                synchronized (messagesListSync) {
+                    for (String msg : messagesListSync) {
                         System.out.println(msg);
                     }
                 }  
@@ -30,15 +30,14 @@ public class MainClient {
             String name = sc.nextLine();
             oos.writeObject(name);
 
-            String msg = "";
-            while (!msg.equals("bye")) {
+            String message = "";
+            while (!message.equals("bye")) {
                 System.out.println("Enter a message: ");
-                msg = sc.nextLine();
-                oos.writeObject(msg);
+                message = sc.nextLine();
+                oos.writeObject(message);
 
-                String msgServer = (String) ois.readObject();
-                System.out.println(msgServer);
-                
+                String messagefromServer = (String) ois.readObject();
+                System.out.println(messagefromServer);   
             }
             
         } catch (Exception e) {
