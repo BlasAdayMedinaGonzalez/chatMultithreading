@@ -18,7 +18,7 @@ public class MainClient {
             List<String> messagesListSync = (List<String>) ois.readObject();
             
             if (!messagesListSync.isEmpty()) {
-               receiveMessageList(messagesListSync);
+               sendAllMessages(messagesListSync);
             }
 
             System.out.println("Enter name: ");
@@ -31,8 +31,12 @@ public class MainClient {
                 message = sc.nextLine();
                 oos.writeObject(message);
 
+
                 String messagefromServer = (String) ois.readObject();
-                System.out.println(messagefromServer);   
+                
+                System.out.println(messagefromServer);
+                
+                
             }
             
         } catch (Exception e) {
@@ -40,7 +44,7 @@ public class MainClient {
         }
     }
 
-    public static void receiveMessageList(List<String> messagesListSync) {
+    public static void sendAllMessages(List<String> messagesListSync) {
         synchronized (messagesListSync) {
             for (String msg : messagesListSync) {
                 System.out.println(msg);
